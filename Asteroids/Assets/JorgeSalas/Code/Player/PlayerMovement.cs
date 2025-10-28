@@ -5,13 +5,15 @@ public class PlayerMovement : MonoBehaviour
     #region Fields
     
     private ShipRotation shipRotation;
+    private Weapon weapon;
     #endregion
 
-    #region Awake_Start_Update
+    #region Start_Update
     
     void Start()
     {
         shipRotation = GetComponent<ShipRotation>();
+        weapon = GetComponent<Weapon>();
         
         if (shipRotation == null) enabled = false;
     }
@@ -35,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FireInput()
     {
-        if (Input.GetKeyDown(KeyCode.W)) Debug.Log("pum pum");
+        if (Input.GetKeyDown(KeyCode.W)) weapon.TryFire();
     }
     #endregion
 }
