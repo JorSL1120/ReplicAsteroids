@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class AsteroidsPoolManager : MonoBehaviour
 {
+    #region Singleton
+
     public static AsteroidsPoolManager Instance { get; private set; }
+    #endregion
+
+    #region Fields
 
     [System.Serializable]
     public class AsteroidsPool
@@ -17,6 +22,9 @@ public class AsteroidsPoolManager : MonoBehaviour
     
     [Header("Cinfiguration Pool")]
     public AsteroidsPool[] asteroidPools;
+    #endregion
+
+    #region Awake
 
     void Awake()
     {
@@ -30,7 +38,10 @@ public class AsteroidsPoolManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    #endregion
 
+    #region Methods
+    
     private void InitializePools()
     {
         foreach (var poolConfig in  asteroidPools)
@@ -74,4 +85,5 @@ public class AsteroidsPoolManager : MonoBehaviour
             poolConfig.pool.Enqueue(asteroid);
         }
     }
+    #endregion
 }
