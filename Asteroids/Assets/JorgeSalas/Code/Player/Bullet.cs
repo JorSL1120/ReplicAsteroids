@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<Asteroids>(out var a))
         {
-            a.Die();
+            a.Hit();
             ReturnToPool();
         }
     }
