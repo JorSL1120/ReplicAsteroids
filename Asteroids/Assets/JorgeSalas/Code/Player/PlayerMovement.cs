@@ -29,15 +29,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotationInput()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             shipRotation.ApplyRotation(1);
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             shipRotation.ApplyRotation(-1);
     }
 
     private void FireInput()
     {
-        if (Input.GetKeyDown(KeyCode.W)) weapon.TryFire();
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) weapon.TryFire();
     }
     #endregion
 }
