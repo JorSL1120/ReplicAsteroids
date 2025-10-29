@@ -148,6 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f76935afa0a9df14daf5915474370d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  initialLives: 4
+  initialBigAsteroids: 10
+  shipPrefab: {fileID: 0}
 --- !u!4 &382721284
 Transform:
   m_ObjectHideFlags: 0
@@ -871,6 +874,7 @@ GameObject:
   - component: {fileID: 1443380541}
   - component: {fileID: 1443380540}
   - component: {fileID: 1443380545}
+  - component: {fileID: 1443380547}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1064,6 +1068,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8510787, y: 0.7021574}
   m_EdgeRadius: 0
+--- !u!114 &1443380547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443380539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61ab448ef7b3f04080bfb4ab3473aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
 --- !u!1 &1808861970
 GameObject:
   m_ObjectHideFlags: 0

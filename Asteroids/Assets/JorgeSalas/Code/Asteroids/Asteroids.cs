@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = System.Random;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Asteroids : MonoBehaviour
@@ -33,6 +31,7 @@ public class Asteroids : MonoBehaviour
     public void Hit()
     {
         Fragment();
+        GameEvents.AsteroidDestroyed(GetScoreValue());
         AsteroidsPoolManager.Instance.ReturnAsteroid(gameObject, size);
     }
 
@@ -61,9 +60,17 @@ public class Asteroids : MonoBehaviour
             if (fragmentRb != null)
             {
                 Vector2 randomDirection = UnityEngine.Random.insideUnitCircle.normalized;
-                fragmentRb.linearVelocity = randomDirection * (maxSpeed * fragmentExtraSpeed);
+                fragmentRb.linearVelocity = randomDirection * (maxSpeed + fragmentExtraSpeed);
             }
         }
+    }
+
+    private int GetScoreValue()
+    {
+        if (size == 1) return 20;
+        if (size == 2) return 50;
+        if (size == 3) return 100;
+        return 0;
     }
     #endregion
 }
