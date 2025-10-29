@@ -487,6 +487,52 @@ MonoBehaviour:
   - size: 3
     prefab: {fileID: 1277288778887501431, guid: 919dcea9cf24a994bb541a6310f74dc5, type: 3}
     initialSize: 48
+--- !u!1 &905839334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 905839336}
+  - component: {fileID: 905839335}
+  m_Layer: 0
+  m_Name: SerialReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &905839335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905839334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8992010b9664234bbe7bbb23c625ec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SerialReader
+  portName: COM3
+  baudRate: 9600
+--- !u!4 &905839336
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905839334}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -89.72999, y: -21.63265, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1043417799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,3 +1171,4 @@ SceneRoots:
   - {fileID: 1808861974}
   - {fileID: 1595885599323095861}
   - {fileID: 1043417802}
+  - {fileID: 905839336}

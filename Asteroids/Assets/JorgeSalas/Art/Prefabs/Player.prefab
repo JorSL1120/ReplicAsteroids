@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4649399981903726234}
   - component: {fileID: 2138164392449204279}
   - component: {fileID: 6115144163273729952}
+  - component: {fileID: -4038613973840866519}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -221,6 +222,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61ab448ef7b3f04080bfb4ab3473aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollision
+--- !u!114 &-4038613973840866519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 741559927988162543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9023caafab01742a6f9644347dd035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArduinoInputController
 --- !u!1 &7899632577967699746
 GameObject:
   m_ObjectHideFlags: 0
