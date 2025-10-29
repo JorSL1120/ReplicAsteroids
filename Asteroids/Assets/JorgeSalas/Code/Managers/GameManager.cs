@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     public int initialBigAsteroids = 10;
     
     [Header("Ship")]
-    public GameObject shipPrefab; 
+    public GameObject shipPrefab;
+    
+    [Header("Asteroid Colors")]
+    public Color[] asteroidColors;
     
     private float safeRadius = 1.5f;
     private GameObject playerInstance; 
@@ -118,6 +121,7 @@ public class GameManager : MonoBehaviour
             if (playerInstance == null)
             {
                 playerInstance = Instantiate(shipPrefab, Vector3.zero, Quaternion.identity);
+                ResetShipAppearance();
                 Rigidbody2D rb = playerInstance.GetComponent<Rigidbody2D>();
                 if(rb != null) rb.linearVelocity = Vector2.zero;
             }
@@ -126,6 +130,8 @@ public class GameManager : MonoBehaviour
                 playerInstance.transform.position = Vector3.zero;
                 playerInstance.transform.rotation = Quaternion.identity;
                 playerInstance.SetActive(true);
+                
+                ResetShipAppearance();
             }
         }
     }
@@ -169,6 +175,23 @@ public class GameManager : MonoBehaviour
         Collider2D hit = Physics2D.OverlapCircle(Vector3.zero, safeRadius);
         if (hit != null && hit.TryGetComponent<Asteroids>(out _)) return true;
         return false;
+    }
+
+    private void ResetShipAppearance()
+    {
+        if (playerInstance != null)
+        {
+            ShipRotation rotation = playerInstance.GetComponent<ShipRotation>();
+            
+            if (rotation != null) rotation.ResetToInitialSprite();
+            
+            Rigidbody2D rb = playerInstance.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+        }
     }
     #endregion
 

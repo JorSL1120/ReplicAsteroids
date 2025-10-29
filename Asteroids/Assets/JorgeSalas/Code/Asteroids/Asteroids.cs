@@ -11,6 +11,11 @@ public class Asteroids : MonoBehaviour
     public float maxSpeed = 1.5f;
     public float fragmentExtraSpeed = 1.5f;
     
+    [HideInInspector]
+    public Color currentAsteroidColor;
+    
+    private SpriteRenderer spriteRenderer;
+    
     private float currentSpeed;
     private Vector2 moveDirection;
     
@@ -23,9 +28,14 @@ public class Asteroids : MonoBehaviour
     private const float SEPARATION_IMPULSE_MAGNITUDE = 0.2f;
     #endregion
 
-    #region Start_OnEnable_Update
+    #region Awake_Start_OnEnable_Update
 
-    private void Start()
+    void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Start()
     {
         screenHeight = Camera.main.orthographicSize;
         screenWidth = screenHeight * Camera.main.aspect;
@@ -36,7 +46,7 @@ public class Asteroids : MonoBehaviour
         ApplyInitialMovement();
     }
 
-    private void Update()
+    void Update()
     {
         transform.Translate(moveDirection * Time.deltaTime, Space.World);
         CheckAndTeleport();
@@ -61,6 +71,20 @@ public class Asteroids : MonoBehaviour
         if (transform.position.y > 0) fastComponent *= -1;
         moveDirection = new Vector2(slowComponent, fastComponent).normalized;
         moveDirection *= currentSpeed;
+
+        AsteroidColor();
+    }
+
+    private void AsteroidColor()
+    {
+        if (spriteRenderer != null && GameManager.Instance.asteroidColors.Length > 0)
+        {
+            Color[] availableColors = GameManager.Instance.asteroidColors;
+            int randomColor = Random.Range(0, availableColors.Length);
+            Color selectedColor = availableColors[randomColor];
+            spriteRenderer.color = selectedColor;
+            currentAsteroidColor = selectedColor;
+        }
     }
 
     private void Fragment()
@@ -76,8 +100,6 @@ public class Asteroids : MonoBehaviour
     private void SpawnFragments(int count, int nextSize, Vector2 baseDirection)
     {
         Vector2 principalDirection = baseDirection.normalized;
-    
-        // Obtenemos la velocidad del padre (para mantener la consistencia).
         float parentSpeed = baseDirection.magnitude; 
 
         for (int i = 0; i < count; i++)
@@ -88,25 +110,20 @@ public class Asteroids : MonoBehaviour
             Asteroids fragmentScript = fragment.GetComponent<Asteroids>();
             if (fragmentScript != null)
             {
-                // 1. Heredar la velocidad base y la dirección.
                 fragmentScript.currentSpeed = Random.Range(fragmentScript.minSpeed, fragmentScript.maxSpeed);
-            
-                // 2. Generar una pequeña desviación perpendicular (el "empujón" de separación).
-                // Usamos la dirección lateral (perpendicular al principalDirection, obtenida rotando 90 grados).
-                // La rotación en 2D es simplemente (-y, x).
                 Vector2 lateralDirection = new Vector2(-principalDirection.y, principalDirection.x);
-            
-                // 3. Aplicar un pequeño impulso lateral aleatorio
+                
                 float impulseMagnitude = Random.Range(0.1f, 1.0f) * SEPARATION_IMPULSE_MAGNITUDE;
-                if (Random.value < 0.5f) impulseMagnitude *= -1; // Dirección izquierda o derecha
+                
+                if (Random.value < 0.5f) impulseMagnitude *= -1;
             
                 Vector2 separationImpulse = lateralDirection * impulseMagnitude;
-            
-                // 4. Crear el vector de movimiento final: Base + Impulso
                 Vector2 finalDirectionVector = (baseDirection + separationImpulse);
-            
-                // 5. Normalizar para obtener la dirección y aplicar la velocidad del fragmento
                 fragmentScript.moveDirection = finalDirectionVector.normalized * fragmentScript.currentSpeed;
+                
+                fragmentScript.currentAsteroidColor = this.currentAsteroidColor;
+                SpriteRenderer fragmentRenderer = fragment.GetComponent<SpriteRenderer>();
+                if (fragmentRenderer != null) fragmentRenderer.color = this.currentAsteroidColor;
             }
         }
     }
