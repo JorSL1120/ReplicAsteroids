@@ -61,12 +61,11 @@ public class GameManager : MonoBehaviour
         currentScore = 0;
         isGameActive = true;
         
-        GameEvents.GameStart();
         UIManager.Instance.UpdateLivesText(currentLives);
         UIManager.Instance.UpdateScoreText(currentScore);
         
         SpawnPlayer();
-        GenerateInitialWave();
+        GenerateInitialWave(initialBigAsteroids);
         GameEvents.GameStart();
     }
 
@@ -117,26 +116,15 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    private void GenerateInitialWave()
-    {
-        int sizeBig = 1;
-        for (int i = 0; i < initialBigAsteroids; i++)
-        {
-            GameObject asteroid = AsteroidsPoolManager.Instance.GetAsteroids(sizeBig);
-            if (asteroid != null) SetRandomSpawnPosition(asteroid);
-        }
-    }
     
     private void SetRandomSpawnPosition(GameObject asteroid)
     {
         float cameraHeight = Camera.main.orthographicSize;
         float cameraWidth = cameraHeight * Camera.main.aspect;
-
         float margin = 1.5f; 
         int side = Random.Range(0, 4); 
         Vector3 spawnPosition = Vector3.zero;
-
+        
         if (side == 0)
             spawnPosition = new Vector3(Random.Range(-cameraWidth, cameraWidth), cameraHeight + margin, 0);
         else if (side == 1)
@@ -145,8 +133,22 @@ public class GameManager : MonoBehaviour
             spawnPosition = new Vector3(-cameraWidth - margin, Random.Range(-cameraHeight, cameraHeight), 0);
         else
             spawnPosition = new Vector3(cameraWidth + margin, Random.Range(-cameraHeight, cameraHeight), 0);
-
+        
         asteroid.transform.position = spawnPosition;
+    }
+
+    private void GenerateInitialWave(int count)
+    {
+        int sizeBig = 1;
+    
+        for (int i = 0; i < count; i++)
+        {
+            GameObject asteroid = AsteroidsPoolManager.Instance.GetAsteroids(sizeBig);
+            if (asteroid != null)
+            {
+                SetRandomSpawnPosition(asteroid); 
+            }
+        }
     }
     #endregion
 }
