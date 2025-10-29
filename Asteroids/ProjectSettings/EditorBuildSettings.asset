@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/JorgeSalas/Scenes/Game.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/JorgeSalas/Scenes/Win.unity
+    guid: 5deb46f6d9e9db546837c3618c5b5c6f
+  - enabled: 1
+    path: Assets/JorgeSalas/Scenes/Lose.unity
+    guid: 4e5c6337797d59b44acb85988e35aa31
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

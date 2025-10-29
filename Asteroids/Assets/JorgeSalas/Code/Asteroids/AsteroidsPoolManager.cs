@@ -21,6 +21,8 @@ public class AsteroidsPoolManager : MonoBehaviour
     
     [Header("Cinfiguration Pool")]
     public AsteroidsPool[] asteroidPools;
+
+    public int ActiveAsteroidsCount { get; private set; } = 0;
     #endregion
 
     #region Awake
@@ -63,6 +65,7 @@ public class AsteroidsPoolManager : MonoBehaviour
         {
             GameObject asteroid = poolConfig.pool.Dequeue();
             asteroid.SetActive(true);
+            ActiveAsteroidsCount++;
             return asteroid;
         }
         
@@ -70,6 +73,7 @@ public class AsteroidsPoolManager : MonoBehaviour
         {
             GameObject newAsteroid = Instantiate(poolConfig.prefab, transform);
             newAsteroid.SetActive(true);
+            ActiveAsteroidsCount++;
             return newAsteroid;
         }
         return null;
@@ -82,6 +86,7 @@ public class AsteroidsPoolManager : MonoBehaviour
         {
             asteroid.SetActive(false);
             poolConfig.pool.Enqueue(asteroid);
+            if (ActiveAsteroidsCount > 0) ActiveAsteroidsCount--;
         }
     }
     #endregion

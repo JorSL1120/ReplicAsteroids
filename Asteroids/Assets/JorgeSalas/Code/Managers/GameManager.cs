@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -90,12 +91,15 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         if (playerInstance != null) playerInstance.SetActive(false);
         GameEvents.GameEnd();
+        SceneManager.LoadScene("Lose");
     }
 
     public void AddScore(int points)
     {
         currentScore += points;
         UIManager.Instance.UpdateScoreText(currentScore);
+
+        CheckWinCondition();
     }
     
     public void LoseLife()
@@ -103,14 +107,7 @@ public class GameManager : MonoBehaviour
         if (!isGameActive || isRespawning) return;
         currentLives--;
         UIManager.Instance.UpdateLivesText(currentLives);
-        if (playerInstance != null) playerInstance.SetActive(false);
-        if (currentLives > 0)
-        {
-            StartCoroutine(SafeSpawnCheck());
-            isRespawning = true;
-        }
-        else
-            EndGame();
+        StartCoroutine(PlayerDeathSequence());
     }
 
     private void SpawnPlayer()
@@ -193,6 +190,19 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    
+    private void CheckWinCondition()
+    {
+        int activeAsteroidsCount = AsteroidsPoolManager.Instance.ActiveAsteroidsCount;
+        if (isGameActive && activeAsteroidsCount <= 1) WinGame();
+    }
+
+    private void WinGame()
+    {
+        isGameActive = false;
+        if (playerInstance != null) playerInstance.SetActive(false);
+        SceneManager.LoadScene("Win");
+    }
     #endregion
 
     #region Coroutines
@@ -205,6 +215,21 @@ public class GameManager : MonoBehaviour
             yield return null;
         
         SpawnPlayer();
+    }
+    
+    private IEnumerator PlayerDeathSequence()
+    {
+        float explosionDuration = 0.25f; 
+        yield return new WaitForSeconds(explosionDuration); 
+        
+        if (playerInstance != null) playerInstance.SetActive(false);
+        if (currentLives > 0)
+        {
+            StartCoroutine(SafeSpawnCheck());
+            isRespawning = true;
+        }
+        else
+            EndGame();
     }
 
     #endregion

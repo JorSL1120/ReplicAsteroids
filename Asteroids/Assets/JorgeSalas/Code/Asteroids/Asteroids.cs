@@ -58,8 +58,8 @@ public class Asteroids : MonoBehaviour
     public void Hit()
     {
         Fragment();
-        GameEvents.AsteroidDestroyed(GetScoreValue());
         AsteroidsPoolManager.Instance.ReturnAsteroid(gameObject, size);
+        GameEvents.AsteroidDestroyed(GetScoreValue());
     }
 
     private void ApplyInitialMovement()
