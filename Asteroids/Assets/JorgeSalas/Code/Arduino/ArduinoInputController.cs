@@ -57,3 +57,44 @@ public class ArduinoInputController : MonoBehaviour
         }
     }
 }
+
+// guardo el codigo de arduiino por si acaso
+
+/*
+ 
+ const int fireButton = 3;
+const int jostickX = A0;
+const int left = 480;
+const int right = 520;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(fireButton, INPUT_PULLUP);
+  Serial.println("control arduino iniciado");
+}
+
+void loop() {
+  int joyX = analogRead(jostickX);
+  bool fireButtonPressed = (digitalRead(fireButton) == LOW);
+  String command = "";
+
+  if (joyX < left) {
+    command += "L";
+  } 
+  else if (joyX > right) {
+    command += "R";
+  }
+
+  if (fireButtonPressed) {
+    command += "F";
+  }
+
+  if (command.length() > 0) {
+    Serial.println(command); 
+    delay(50); 
+  } else {
+    delay(10);
+  }
+}
+ 
+ */
