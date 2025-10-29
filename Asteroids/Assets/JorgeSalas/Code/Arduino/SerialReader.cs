@@ -8,9 +8,7 @@ public class SerialReader : MonoBehaviour
     public static event Action<string> OnCommandReceived;
 
     [Header("Configuración Serial")]
-    [Tooltip("El nombre del puerto (ej: COM3, /dev/tty.usbmodemXXXX)")]
     public string portName = "COM3"; 
-    [Tooltip("La velocidad de comunicación (debe coincidir con Arduino)")]
     public int baudRate = 9600;
 
     private SerialPort serialPort;
@@ -24,11 +22,11 @@ public class SerialReader : MonoBehaviour
             serialPort.ReadTimeout = 1;
             serialPort.Open();
             isRunning = true;
-            Debug.Log($"Conexión serial establecida en {portName}");
+            Debug.Log("Conexión serial establecida en " + portName);
         }
         catch (Exception e)
         {
-            Debug.LogError($"Error al abrir el puerto serial {portName}: {e.Message}. El control de Arduino NO funcionará.");
+            Debug.LogError("Error al abrir el puerto serial " + portName + " con " + e.Message);
             isRunning = false;
         }
     }
@@ -53,7 +51,7 @@ public class SerialReader : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError($"Error de lectura serial inesperado: {e.Message}");
+            Debug.LogError("Error de lectura serial inesperado: " + e.Message);
         }
     }
 

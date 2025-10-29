@@ -41,17 +41,19 @@ public class ArduinoInputController : MonoBehaviour
     private void HandleCommand(string command)
     {
         if (!inputEnabled) return;
-        switch (command)
+        string processedCommand = command.Trim().ToUpper();
+        if (processedCommand.Contains("L"))
         {
-            case "L":
-                shipRotation.ApplyRotation(1); 
-                break;
-            case "R":
-                shipRotation.ApplyRotation(-1);
-                break;
-            case "F":
-                weapon.TryFire();
-                break;
+            shipRotation.ApplyRotation(1); 
+        }
+        else if (processedCommand.Contains("R"))
+        {
+            shipRotation.ApplyRotation(-1);
+        }
+        
+        if (processedCommand.Contains("F"))
+        {
+            weapon.TryFire();
         }
     }
 }
