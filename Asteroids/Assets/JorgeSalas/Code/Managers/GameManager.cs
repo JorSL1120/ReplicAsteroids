@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -16,12 +17,24 @@ public class GameManager : MonoBehaviour
     [Header("Ship")]
     public GameObject shipPrefab; 
     
+    private float safeRadius = 1.5f;
     private GameObject playerInstance; 
     
     private int currentLives;
     private int currentScore;
     private bool isGameActive = false;
     private bool isRespawning = false;
+    #endregion
+
+    #region Properties
+
+    public bool IsGameActive
+    {
+        get
+        {
+            return isGameActive;
+        }
+    }
     #endregion
 
     #region Awake_Start_OnEnable_OnDisable
@@ -90,7 +103,7 @@ public class GameManager : MonoBehaviour
         if (playerInstance != null) playerInstance.SetActive(false);
         if (currentLives > 0)
         {
-            Invoke(nameof(SpawnPlayer), 1.0f);
+            StartCoroutine(SafeSpawnCheck());
             isRespawning = true;
         }
         else
@@ -150,5 +163,26 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    
+    private bool IsAreaOccupied()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(Vector3.zero, safeRadius);
+        if (hit != null && hit.TryGetComponent<Asteroids>(out _)) return true;
+        return false;
+    }
+    #endregion
+
+    #region Coroutines
+
+    private IEnumerator SafeSpawnCheck()
+    {
+        yield return new WaitForSeconds(1);
+
+        while (IsAreaOccupied())
+            yield return null;
+        
+        SpawnPlayer();
+    }
+
     #endregion
 }

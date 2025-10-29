@@ -20,6 +20,7 @@ public class Asteroids : MonoBehaviour
     
     private const float SUBSIDIARY_RATIO_MIN = 0.05f;
     private const float SUBSIDIARY_RATIO_MAX = 0.1f;
+    private const float SEPARATION_IMPULSE_MAGNITUDE = 0.2f;
     #endregion
 
     #region Start_OnEnable_Update
@@ -74,18 +75,38 @@ public class Asteroids : MonoBehaviour
 
     private void SpawnFragments(int count, int nextSize, Vector2 baseDirection)
     {
+        Vector2 principalDirection = baseDirection.normalized;
+    
+        // Obtenemos la velocidad del padre (para mantener la consistencia).
+        float parentSpeed = baseDirection.magnitude; 
+
         for (int i = 0; i < count; i++)
         {
             GameObject fragment = AsteroidsPoolManager.Instance.GetAsteroids(nextSize);
             fragment.transform.position = transform.position;
-            
+        
             Asteroids fragmentScript = fragment.GetComponent<Asteroids>();
             if (fragmentScript != null)
             {
-                fragmentScript.moveDirection = baseDirection;
-                Vector2 randomOffset = Random.insideUnitCircle.normalized * fragmentExtraSpeed;
-                fragmentScript.moveDirection = (fragmentScript.moveDirection + randomOffset).normalized;
+                // 1. Heredar la velocidad base y la dirección.
                 fragmentScript.currentSpeed = Random.Range(fragmentScript.minSpeed, fragmentScript.maxSpeed);
+            
+                // 2. Generar una pequeña desviación perpendicular (el "empujón" de separación).
+                // Usamos la dirección lateral (perpendicular al principalDirection, obtenida rotando 90 grados).
+                // La rotación en 2D es simplemente (-y, x).
+                Vector2 lateralDirection = new Vector2(-principalDirection.y, principalDirection.x);
+            
+                // 3. Aplicar un pequeño impulso lateral aleatorio
+                float impulseMagnitude = Random.Range(0.1f, 1.0f) * SEPARATION_IMPULSE_MAGNITUDE;
+                if (Random.value < 0.5f) impulseMagnitude *= -1; // Dirección izquierda o derecha
+            
+                Vector2 separationImpulse = lateralDirection * impulseMagnitude;
+            
+                // 4. Crear el vector de movimiento final: Base + Impulso
+                Vector2 finalDirectionVector = (baseDirection + separationImpulse);
+            
+                // 5. Normalizar para obtener la dirección y aplicar la velocidad del fragmento
+                fragmentScript.moveDirection = finalDirectionVector.normalized * fragmentScript.currentSpeed;
             }
         }
     }

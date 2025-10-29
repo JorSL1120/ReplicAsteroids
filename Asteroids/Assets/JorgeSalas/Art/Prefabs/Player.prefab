@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   bulletSpeed: 10
-  fireRate: 0.5
+  fireRate: 0.4
 --- !u!114 &6115144163273729952
 MonoBehaviour:
   m_ObjectHideFlags: 0
