@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e764abfff33d33047b7a57fdfd0f6eac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShipRotation
-  rotationStep: 30
+  rotationStep: 22.5
 --- !u!114 &2138164392449204279
 MonoBehaviour:
   m_ObjectHideFlags: 0

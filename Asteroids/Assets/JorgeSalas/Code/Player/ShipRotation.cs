@@ -4,7 +4,7 @@ public class ShipRotation : MonoBehaviour
 {
     #region Fields
 
-    public float rotationStep = 30f;
+    public float rotationStep = 22.5f;
     #endregion
     
     #region Methods
