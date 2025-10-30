@@ -23,9 +23,9 @@ public class Asteroids : MonoBehaviour
     private float screenHeight;
     private float margin = 0.5f;
     
-    private const float SUBSIDIARY_RATIO_MIN = 0.05f;
-    private const float SUBSIDIARY_RATIO_MAX = 0.1f;
-    private const float SEPARATION_IMPULSE_MAGNITUDE = 0.2f;
+    private const float MIN_RATIO = 0.05f;
+    private const float MAX_RATIO = 0.1f;
+    private const float IMPULSE_SEPARATION = 0.8f;
     #endregion
 
     #region Awake_Start_OnEnable_Update
@@ -65,7 +65,7 @@ public class Asteroids : MonoBehaviour
     private void ApplyInitialMovement()
     {
         currentSpeed = Random.Range(minSpeed, maxSpeed);
-        float slowComponent = currentSpeed * Random.Range(SUBSIDIARY_RATIO_MIN, SUBSIDIARY_RATIO_MAX);
+        float slowComponent = currentSpeed * Random.Range(MIN_RATIO, MAX_RATIO);
         if (Random.value < 0.5f) slowComponent *= -1;
         float fastComponent = currentSpeed;
         if (transform.position.y > 0) fastComponent *= -1;
@@ -113,9 +113,9 @@ public class Asteroids : MonoBehaviour
                 fragmentScript.currentSpeed = Random.Range(fragmentScript.minSpeed, fragmentScript.maxSpeed);
                 Vector2 lateralDirection = new Vector2(-principalDirection.y, principalDirection.x);
                 
-                float impulseMagnitude = Random.Range(0.1f, 1.0f) * SEPARATION_IMPULSE_MAGNITUDE;
+                float impulseMagnitude = Random.Range(0.5f, 1.0f) * IMPULSE_SEPARATION;
                 
-                if (Random.value < 0.5f) impulseMagnitude *= -1;
+                //if (Random.value < 0.5f) impulseMagnitude *= -1;
             
                 Vector2 separationImpulse = lateralDirection * impulseMagnitude;
                 Vector2 finalDirectionVector = (baseDirection + separationImpulse);

@@ -22,7 +22,12 @@ public class ShipRotation : MonoBehaviour
 
     public void ApplyRotation(int direction)
     {
-        int step = (direction == 1) ? 1 : -1;
+        int step;
+        if (direction == 1)
+            step = 1;
+        else
+            step = -1;
+
         currentSpriteIndex = (currentSpriteIndex + step + 16) % 16;
         UpdateRotatioonAndSprite();
     }
