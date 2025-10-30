@@ -194,7 +194,7 @@ public class GameManager : MonoBehaviour
     private void CheckWinCondition()
     {
         int activeAsteroidsCount = AsteroidsPoolManager.Instance.ActiveAsteroidsCount;
-        if (isGameActive && activeAsteroidsCount <= 1) WinGame();
+        if (isGameActive && activeAsteroidsCount < 1) WinGame();
     }
 
     private void WinGame()

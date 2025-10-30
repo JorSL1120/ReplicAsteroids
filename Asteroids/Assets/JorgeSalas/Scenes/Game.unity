@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   initialLives: 4
-  initialBigAsteroids: 7
+  initialBigAsteroids: 5
   shipPrefab: {fileID: 741559927988162543, guid: 3972707f827dbeb42ba0acc956d3e28e, type: 3}
   asteroidColors:
   - {r: 0.48235297, g: 0.5411765, b: 0.20392159, a: 1}
@@ -608,7 +608,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &905839335
 MonoBehaviour:
   m_ObjectHideFlags: 0

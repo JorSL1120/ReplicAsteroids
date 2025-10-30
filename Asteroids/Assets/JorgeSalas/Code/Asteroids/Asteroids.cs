@@ -25,7 +25,7 @@ public class Asteroids : MonoBehaviour
     
     private const float MIN_RATIO = 0.05f;
     private const float MAX_RATIO = 0.1f;
-    private const float IMPULSE_SEPARATION = 0.8f;
+    private const float IMPULSE_SEPARATION = 1f;
     #endregion
 
     #region Awake_Start_OnEnable_Update
@@ -113,9 +113,9 @@ public class Asteroids : MonoBehaviour
                 fragmentScript.currentSpeed = Random.Range(fragmentScript.minSpeed, fragmentScript.maxSpeed);
                 Vector2 lateralDirection = new Vector2(-principalDirection.y, principalDirection.x);
                 
-                float impulseMagnitude = Random.Range(0.5f, 1.0f) * IMPULSE_SEPARATION;
+                float impulseMagnitude = Random.Range(0.1f, 1.0f) * IMPULSE_SEPARATION;
                 
-                //if (Random.value < 0.5f) impulseMagnitude *= -1;
+                if (Random.value < 0.5f) impulseMagnitude *= -1;
             
                 Vector2 separationImpulse = lateralDirection * impulseMagnitude;
                 Vector2 finalDirectionVector = (baseDirection + separationImpulse);
