@@ -23,6 +23,9 @@ public class AsteroidsPoolManager : MonoBehaviour
     public AsteroidsPool[] asteroidPools;
 
     public int ActiveAsteroidsCount { get; private set; } = 0;
+    
+    public AudioClip asteroidSound;
+    public AudioSource asteroidSoundSource;
     #endregion
 
     #region Awake
@@ -85,6 +88,7 @@ public class AsteroidsPoolManager : MonoBehaviour
         if (poolConfig != null)
         {
             asteroid.SetActive(false);
+            asteroidSoundSource.PlayOneShot(asteroidSound);
             poolConfig.pool.Enqueue(asteroid);
             if (ActiveAsteroidsCount > 0) ActiveAsteroidsCount--;
         }
